@@ -1,0 +1,63 @@
+# Logs e arquivos temporários
+logs
+*.log
+*.swp
+*.swo
+*.sln.docstates
+
+# Binários e pastas de build
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.appx
+*.appxbundle
+*.msi
+*.vsix
+*.nupkg
+*.ps1
+
+# Arquivos de cache e lock do sistema
+.vscode/
+*.vs/
+.vs/
+*.user
+*.suo
+*.cache
+*.csproj.user
+*.db
+
+# Arquivos gerados pelo dotnet
+project.lock.json
+project.assets.json
+
+# Diretório do Entity Framework Migrations
+Migrations/
+
+# Arquivos do NuGet
+packages/
+*.nupkg
+project.lock.json
+.nuget/
+
+# Arquivos do Rider (JetBrains)
+.idea/
+*.sln.iml
+
+# Chaves e configurações sensíveis
+appsettings.json
+appsettings.Development.json
+secrets.json
+.env
+
+# Pasta oculta do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Node_modules (caso use Angular no front-end)
+node_modules/
+
+# Arquivos do Docker (se aplicável)
+docker-compose.override.yml
