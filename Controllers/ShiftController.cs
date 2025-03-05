@@ -25,29 +25,29 @@ namespace Api.Controllers{
         [HttpGet("{id}")]
         public IActionResult GetShift(int id)
         {
-            Turno shift = _service.GetShiftById(id);
+            Shift shift = _service.GetShiftById(id);
             
-            if(shift == null)
-            {
+            if(shift == null) 
                 return NotFound();
-            }
 
             return Ok(shift);
-
         }
 
         [HttpPost]
-        public IActionResult PostShift(Turno shift)
+        public IActionResult PostShift(ShiftDTO shift)
         {
-            Turno newShift = _service.CreateShift(shift);
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Shift newShift = _service.CreateShift(shift);
             return Ok(newShift);
         }
 
 
         [HttpPut("{id}")]
-        public IActionResult PutPost(int id, Turno shift)
+        public IActionResult PutPost(int id, Shift shift)
         {
-            Turno updatedShift = _service.UpdateShift(id, shift);
+            Shift updatedShift = _service.UpdateShift(id, shift);
 
             if(updatedShift == null)
                 return NotFound();
@@ -59,7 +59,7 @@ namespace Api.Controllers{
         [HttpDelete("{id}")]
         public IActionResult DeletePost(int id)
         {
-            Turno deletedShift = _service.DeleteShift(id);
+            Shift deletedShift = _service.DeleteShift(id);
 
             if(deletedShift == null)
                 return NotFound();
@@ -67,9 +67,6 @@ namespace Api.Controllers{
             return NoContent(); 
 
         }
-
-
-       
     }
 
 }

@@ -5,26 +5,26 @@ namespace Api.Repositories
 {
     public class TaskEmployeeRepository : ITaskEmployeeRepository
     {
-        private readonly EscalaDBContext _context;
+        private readonly StaffScheduleDBContext _context;
 
-        public TaskEmployeeRepository(EscalaDBContext context)
+        public TaskEmployeeRepository(StaffScheduleDBContext context)
         { 
             _context = context;
         }
 
-        public Tarefa GetTaskById(int id)
+        public Tasks GetTaskById(int id)
         {
-            return _context.Tarefas.Find(id);
+            return _context.Tasks.Find(id);
         }
 
-        public Funcionario GetEmployeeById(int id)
+        public Employee GetEmployeeById(int id)
         {
-            return _context.Funcionarios.Find(id);
+            return _context.Employees.Find(id);
         }
 
-        public void Associate(TarefaFuncionario taskEmployee)
+        public void Associate(TaskEmployee taskEmployee)
         {
-            _context.TarefasFuncionarios.Add(taskEmployee);
+            _context.TaskEmployees.Add(taskEmployee);
             _context.SaveChanges();
         }
 

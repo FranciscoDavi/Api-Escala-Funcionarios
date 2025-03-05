@@ -1,13 +1,24 @@
 
+using System.ComponentModel.DataAnnotations;
+using Api.Entities;
+
 namespace Api.DTOS
 {
     public class EmployeeDTO
     {
         public int Id { get; set; }
-        public string Nome { get; set;}
 
-        /*
-        public List<string> Turnos { get; set; } = new List<string>();
-        public List<string> Tarefas { get; set; } = new List<string>();*/
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set;}
+
+        [Required(ErrorMessage = "Surname is required")]
+        public string Surname { get; set;}
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "The email provided is invalid")]
+        public string Email { get; set;}
+        public string Phone { get; set;} 
+        public List<ShiftDTO> Shifts { get; set; } = new ();
+        public List<TaskDTO> Tasks { get; set; } = new ();
     }
 }

@@ -14,42 +14,90 @@ namespace Api.Services
         }
 
         public IEnumerable<EmployeeDTO> GetAllEmployees (){
-            List<Funcionario> employees = _repository.GetAll();
-            return employees.Select(e => new EmployeeDTO {Id = e.Id, Nome = e.Nome});
+            List<Employee> employees = _repository.GetAll();
+    
+            return employees.Select(e => new EmployeeDTO {
+                Id = e.Id, 
+                Name = e.Name, 
+                Surname = e.Surname, 
+                Email = e.Email, 
+                Phone = e.Phone,
+                Shifts = e.ShiftEmployees.Select(se => new ShiftDTO{
+                    Id = se.Shift.Id,
+                    Period = se.Shift.Period,
+                    Start_Time = se.Shift.Start_Time,
+                    End_Time = se.Shift.End_Time
+                }).ToList(),
+                Tasks = e.TaskEmployees.Select(te => new TaskDTO{
+                    Id = te.Task.Id,
+                    Name = te.Task.Name,
+                    Date = te.Task.Date
+                }).ToList(),
+            });
         }
 
-        public Funcionario GetEmployeeById(int id)
+        public EmployeeDTO GetEmployeeById(int id)
         {
-            return _repository.GetById(id);
+
+            Employee employee = _repository.GetById(id);
+
+            return new EmployeeDTO{
+                Id = employee.Id, 
+                Name = employee.Name,
+                Surname = employee.Surname, 
+                Email = employee.Email, 
+                Phone = employee.Phone,
+                Shifts = employee.ShiftEmployees.Select(se => new ShiftDTO{
+                    Id = se.Shift.Id,
+                    Period = se.Shift.Period,
+                    Start_Time = se.Shift.Start_Time,
+                    End_Time = se.Shift.End_Time
+                }).ToList(),
+                Tasks = employee.TaskEmployees.Select(te => new TaskDTO{
+                    Id = te.Task.Id,
+                    Name = te.Task.Name,
+                    Date = te.Task.Date
+                }).ToList(),
+            };
         }   
     
-        public EmployeeDTO CreateEmployee(Funcionario _employee)
+        public Employee CreateEmployee(EmployeeDTO employeeDTO)
         {
-            Funcionario employee = _repository.Create( _employee);
-
-            EmployeeDTO employeeDTO = new EmployeeDTO {Id = employee.Id, Nome = employee.Nome};
-
-            return employeeDTO;
+            Employee employee = new Employee{
+                Id = employeeDTO.Id,
+                Name = employeeDTO.Name,
+                Surname = employeeDTO.Surname,
+                Email = employeeDTO.Email,
+                Phone = employeeDTO.Phone
+            };
+            
+            return _repository.Create(employee);
+        
         }
 
-        public Funcionario UpdateEmployee(int id, Funcionario employee)
+        public Employee UpdateEmployee(int id, EmployeeDTO employeeDTO)
         {
-            Funcionario dbEmployee = _repository.GetById(id);
 
-            if (dbEmployee == null)
+            Employee databaseEmployee = _repository.GetById(id);
+
+            if (databaseEmployee == null)
             {
                 return null;
             }
 
-            dbEmployee.Nome = employee.Nome;
+            databaseEmployee.Name = employeeDTO.Name;
+            databaseEmployee.Surname = employeeDTO.Surname;
+            databaseEmployee.Email = employeeDTO.Email;
+            databaseEmployee.Phone = employeeDTO.Phone;
 
-            Funcionario updatedEmployee = _repository.Update(dbEmployee);
+            Employee updatedEmployee = _repository.Update(databaseEmployee);
+            
             return updatedEmployee;
         }
 
-        public Funcionario DeleteEmployee(int id)
+        public Employee DeleteEmployee(int id)
         {
-            Funcionario employee = _repository.GetById(id);
+            Employee employee = _repository.GetById(id);
 
             if(employee == null)
             {

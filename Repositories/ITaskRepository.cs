@@ -5,11 +5,11 @@ namespace Api.Repositories
 {
     public interface ITaskRepository
     {
-        public Tarefa Create(Tarefa task);
-        public List<Tarefa> GetAll();
-        public Tarefa GetById(int id);
-        public Tarefa Update(int Id, Tarefa task);
-        public void Delete(Tarefa tarefa);
+        public Tasks Create(Tasks task);
+        public List<Tasks> GetAll();
+        public Tasks GetById(int id);
+        public Tasks Update(int Id, Tasks task);
+        public void Delete(Tasks tarefa);
     }
 
 }

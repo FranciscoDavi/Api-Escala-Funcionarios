@@ -1,45 +1,48 @@
 
 using Api.Data;
 using Api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Repositories
 {
     public class ShiftRepository : IShiftRepository
     {
-        private readonly EscalaDBContext _context;
+        private readonly StaffScheduleDBContext _context;
 
-        public ShiftRepository(EscalaDBContext context)
+        public ShiftRepository(StaffScheduleDBContext context)
         {
             _context = context;
         }
 
-        public List<Turno> GetAll()
+        public List<Shift> GetAll()
         {
-            return _context.Turnos.ToList();    
+            return  _context.Shifts.Include(se => se.ShiftEmployees).ThenInclude(e => e.Employee)
+                    .Include(st => st.ShiftTasks).ThenInclude(t => t.Task).ToList();    
         }
 
-        public Turno GetById(int id)
+        public Shift GetById(int id)
         {
-            return _context.Turnos.Find(id);
+            return _context.Shifts.Include(se => se.ShiftEmployees).ThenInclude(e => e.Employee)
+                    .Include(st => st.ShiftTasks).ThenInclude(t => t.Task).Where(se => se.Id == id).FirstOrDefault();   
         }
         
-        public Turno Create(Turno shift)
+        public Shift Create(Shift shift)
         {
-            _context.Turnos.Add(shift);
+            _context.Shifts.Add(shift);
             _context.SaveChanges();
             return shift;
         }
 
-        public void Update(Turno shift)
+        public void Update(Shift shift)
         {
-            _context.Turnos.Update(shift);
+            _context.Shifts.Update(shift);
             _context.SaveChanges();
           
         }
 
-        public void Delete(Turno shift)
+        public void Delete(Shift shift)
         {
-            _context.Turnos.Remove(shift);
+            _context.Shifts.Remove(shift);
             _context.SaveChanges();
         }
     }

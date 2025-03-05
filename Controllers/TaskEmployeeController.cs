@@ -17,10 +17,10 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostTaskEmployee(TarefaFuncionario _taskEmployee)
+        public ActionResult PostTaskEmployee(TaskEmployee _taskEmployee)
         {
             try{
-                TarefaFuncionarioDTO taskEmployee = _service.AssociateTaskEmployee(_taskEmployee);
+                TaskEmployeeDTO taskEmployee = _service.AssociateTaskEmployee(_taskEmployee);
 
                 if(taskEmployee == null)
                     return BadRequest();

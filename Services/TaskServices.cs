@@ -1,6 +1,5 @@
 using Api.Entities;
 using Api.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace  Api.Services
 {
@@ -13,36 +12,36 @@ namespace  Api.Services
             _repository = repository;
         }
 
-        public Tarefa CreateTask(Tarefa task)
+        public Tasks CreateTask(Tasks task)
         {
             return _repository.Create(task);
         }
 
-        public List<Tarefa> GetAllTasks()
+        public List<Tasks> GetAllTasks()
         {
             return _repository.GetAll();
         }
 
-        public Tarefa GetOneTask(int id)
+        public Tasks GetOneTask(int id)
         {
-            Tarefa task = _repository.GetById(id);
+            Tasks task = _repository.GetById(id);
             return task; 
         }
 
-        public Tarefa UpdateTask(int id, Tarefa task)
+        public Tasks UpdateTask(int id, Tasks task)
         {   
-            Tarefa IfExistTask = _repository.GetById(id);
+            Tasks IfExistTask = _repository.GetById(id);
 
             if (IfExistTask == null) return null;
 
-            Tarefa updatedTask = _repository.Update(id, task);
+            Tasks updatedTask = _repository.Update(id, task);
                 
             return updatedTask;
         }
 
-        public Tarefa DeleteTask(int id)
+        public Tasks DeleteTask(int id)
         {
-            Tarefa task = _repository.GetById(id);
+            Tasks task = _repository.GetById(id);
             
             if(task == null) return null;
 

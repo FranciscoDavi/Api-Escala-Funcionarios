@@ -26,66 +26,51 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetEmployee(int id)
         {
-            Funcionario employee = _service.GetEmployeeById(id);
+            EmployeeDTO employee = _service.GetEmployeeById(id);
             return Ok(employee);
-
         }
 
-
         [HttpPost]
-        public IActionResult PostEmployee(Funcionario employee)
-        {
-            try
+        public IActionResult PostEmployee(EmployeeDTO employee)
+        {   
+            if(!ModelState.IsValid)
             {
-                EmployeeDTO newEmployee = _service.CreateEmployee(employee);
-                return Ok(newEmployee);
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            Employee newEmployee = _service.CreateEmployee(employee);
+            return Ok(newEmployee);    
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutEmployee(int id, Funcionario employee)
+        public IActionResult PutEmployee(int id, EmployeeDTO employee)
         {
-            try
+            if(!ModelState.IsValid)
             {
-                Funcionario updatedEmployee = _service.UpdateEmployee(id, employee);
-
-                if (updatedEmployee == null) 
-                {
-                    return NotFound();
-                }
-
-                return Ok(updatedEmployee);
+                return BadRequest(ModelState);
             }
-            catch(Exception ex)
+
+            Employee updatedEmployee = _service.UpdateEmployee(id, employee);
+
+            if (updatedEmployee == null) 
             {
-                return  BadRequest(ex.Message);
+                return NotFound();
             }
-            
+
+            return Ok(updatedEmployee);   
         }
 
 
         [HttpDelete("{id}")]
         public IActionResult DeleteEmployee(int id)
         {
-           try
-           {
-                Funcionario employee = _service.DeleteEmployee(id);
+           Employee employee = _service.DeleteEmployee(id);
 
-                if (employee == null)
-                {
-                    return NotFound();
-                }
-
-                return NoContent();
-           }    
-           catch (Exception ex)
-           {
-                return BadRequest(ex.Message);
-           }
+            if (employee == null)
+                return NotFound();
+                
+            return NoContent();
+            
         }
     }
 }

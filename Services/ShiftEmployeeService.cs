@@ -13,10 +13,10 @@ namespace Api.Services
             _repository = repository;
         }
 
-        public FuncionarioTurnoDTO AssociateShiftEmployee(FuncionarioTurno shiftEmployee)
+        public ShiftEmployeeDTO AssociateShiftEmployee(ShiftEmployee shiftEmployee)
         {
-            Turno shift  = _repository.GetShiftById(shiftEmployee.TurnoID);
-            Funcionario employee = _repository.GetEmployeeById(shiftEmployee.FuncionarioID);
+            Shift shift  = _repository.GetShiftById(shiftEmployee.ShiftId);
+            Employee employee = _repository.GetEmployeeById(shiftEmployee.EmployeeId);
 
             if (shift == null || employee == null)
             {
@@ -25,7 +25,7 @@ namespace Api.Services
             
             _repository.Associate(shiftEmployee);
 
-            return new FuncionarioTurnoDTO{TurnoId = shiftEmployee.TurnoID, FuncionarioId = shiftEmployee.FuncionarioID}; 
+            return new ShiftEmployeeDTO{ShiftId = shiftEmployee.ShiftId, EmployeeId = shiftEmployee.EmployeeId}; 
         }
     }
 }

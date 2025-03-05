@@ -5,25 +5,25 @@ namespace Api.Repositories
 {
     public class ShiftEmployeeRepository : IShiftEmployeeRepository
     {
-        private readonly EscalaDBContext _context;
+        private readonly StaffScheduleDBContext _context;
 
-        public ShiftEmployeeRepository(EscalaDBContext context){
+        public ShiftEmployeeRepository(StaffScheduleDBContext context){
             _context = context;
         }
 
-        public Turno GetShiftById(int id)
+        public Shift GetShiftById(int id)
         {
-            return _context.Turnos.Find(id);
+            return _context.Shifts.Find(id);
         }
 
-        public Funcionario GetEmployeeById(int id)
+        public Employee GetEmployeeById(int id)
         {
-            return _context.Funcionarios.Find(id);
+            return _context.Employees.Find(id);
         }
 
-        public void Associate(FuncionarioTurno shiftEmployee)
+        public void Associate(ShiftEmployee shiftEmployee)
         {
-            _context.FuncionarioTurnos.Add(shiftEmployee);
+            _context.ShiftEmployees.Add(shiftEmployee);
             _context.SaveChanges();
         }
 

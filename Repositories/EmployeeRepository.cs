@@ -1,45 +1,49 @@
 
 using Api.Data;
 using Api.Entities;
+using Api.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly EscalaDBContext _context;
+        private readonly StaffScheduleDBContext _context;
 
-        public EmployeeRepository(EscalaDBContext context)
+        public EmployeeRepository(StaffScheduleDBContext context)
         {
             _context = context;
         }
 
-        public List<Funcionario> GetAll()
+        public List<Employee> GetAll()
         {
-            return _context.Funcionarios.ToList();
+            return _context.Employees.Include(e => e.ShiftEmployees).ThenInclude(es => es.Shift)
+                .Include(te => te.TaskEmployees).ThenInclude(t => t.Task).ToList();
         }
 
-        public Funcionario GetById(int id)
+        public Employee GetById(int id)
         {
-            return _context.Funcionarios.Find(id);
+            return _context.Employees.Include(e => e.ShiftEmployees).ThenInclude(es => es.Shift)
+                .Include(te => te.TaskEmployees).ThenInclude(t => t.Task).Where(e=> e.Id == id).FirstOrDefault();
         }
 
-        public Funcionario Create(Funcionario employee)
+        public Employee Create(Employee employee)
         {
-            _context.Funcionarios.Add(employee);
+            _context.Employees.Add(employee);
             _context.SaveChanges();
             return employee;
         }
 
-        public Funcionario Update(Funcionario employee)
+        public Employee Update(Employee employee)
         {
-            _context.Funcionarios.Update(employee);
+            _context.Employees.Update(employee);
             _context.SaveChanges();
             return employee;
         }
         
-        public void Delete(Funcionario employee)
+        public void Delete(Employee employee)
         {
-            _context.Funcionarios.Remove(employee);
+            _context.Employees.Remove(employee);
             _context.SaveChanges();
         }
     }

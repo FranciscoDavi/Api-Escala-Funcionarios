@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 
-builder.Services.AddDbContext<EscalaDBContext>(options => 
+builder.Services.AddDbContext<StaffScheduleDBContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoPadrao")));
 
 //Injetando depencias de Funcionarios(Employees)
@@ -27,8 +27,8 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<ITaskEmployeeRepository, TaskEmployeeRepository>();
 builder.Services.AddScoped<TaskEmployeeService>();
 
-builder.Services.AddScoped<ITaskShiftRepository, TaskShiftRepository>();
-builder.Services.AddScoped<TaskShiftService>();
+builder.Services.AddScoped<IShiftTaskRepository, ShiftTaskRepository>();
+builder.Services.AddScoped<ShiftTaskService>();
 
 builder.Services.AddScoped<IShiftEmployeeRepository, ShiftEmployeeRepository>();
 builder.Services.AddScoped<ShiftEmployeeService>();

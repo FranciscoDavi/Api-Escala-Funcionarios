@@ -17,25 +17,16 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostShiftEmployee(FuncionarioTurno shiftEmployee)
+        public IActionResult PostShiftEmployee(ShiftEmployee shiftEmployee)
         {
-            try{
-                FuncionarioTurnoDTO newShiftEmployee = _service.AssociateShiftEmployee(shiftEmployee);
+            ShiftEmployeeDTO newShiftEmployee = _service.AssociateShiftEmployee(shiftEmployee);
 
-                if(newShiftEmployee == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(newShiftEmployee);
-            }
-            catch(Exception ex)
+            if(newShiftEmployee == null)
             {
-                return BadRequest(ex.Message);
+                return NotFound();
             }
-
+            
+            return Ok(newShiftEmployee);      
         }
-
     }
-
 }

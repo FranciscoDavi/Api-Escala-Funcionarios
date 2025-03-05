@@ -5,45 +5,45 @@ namespace Api.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
-        private readonly EscalaDBContext _context;
+        private readonly StaffScheduleDBContext _context;
 
-        public TaskRepository(EscalaDBContext context)
+        public TaskRepository(StaffScheduleDBContext context)
         {
             _context = context;
         }
 
-        public Tarefa Create(Tarefa task)
+        public Tasks Create(Tasks task)
         {
-            _context.Tarefas.Add(task);
+            _context.Tasks.Add(task);
             _context.SaveChanges();
             return task;
         }
 
-        public List<Tarefa> GetAll()
+        public List<Tasks> GetAll()
         {
-           return  _context.Tarefas.ToList();
+           return  _context.Tasks.ToList();
         }
 
-        public Tarefa GetById(int id)
+        public Tasks GetById(int id)
         {
-            return _context.Tarefas.Find(id);
+            return _context.Tasks.Find(id);
         }
-        public Tarefa Update(int Id, Tarefa task)
+        public Tasks Update(int Id, Tasks task)
         {
-            Tarefa dbTask = _context.Tarefas.Find(Id);   
+            Tasks dbTask = _context.Tasks.Find(Id);   
 
             dbTask.Name = task.Name;
-            dbTask.Descricao = task.Descricao;
+            dbTask.Description = task.Description;
 
-            _context.Tarefas.Update(dbTask);
+            _context.Tasks.Update(dbTask);
             _context.SaveChanges();
 
             return task;
         }
 
-        public void Delete(Tarefa tarefa)
+        public void Delete(Tasks tarefa)
         {
-            _context.Tarefas.Remove(tarefa);
+            _context.Tasks.Remove(tarefa);
             _context.SaveChanges();
         }
     }

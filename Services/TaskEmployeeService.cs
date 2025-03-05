@@ -13,10 +13,10 @@ namespace  Api.Services
             _repository = repository;
         }
 
-        public TarefaFuncionarioDTO AssociateTaskEmployee(TarefaFuncionario taskEmployee)
+        public TaskEmployeeDTO AssociateTaskEmployee(TaskEmployee taskEmployee)
         {
-            Tarefa task = _repository.GetTaskById(taskEmployee.TarefaID);
-            Funcionario employee = _repository.GetEmployeeById(taskEmployee.FuncionarioID);
+            Tasks task = _repository.GetTaskById(taskEmployee.TaskId);
+            Employee employee = _repository.GetEmployeeById(taskEmployee.EmployeeId);
 
             if(task == null || employee == null)
             {
@@ -25,7 +25,7 @@ namespace  Api.Services
 
             _repository.Associate(taskEmployee);       
 
-            TarefaFuncionarioDTO taskEmployeeDTO = new TarefaFuncionarioDTO{TarefaId =taskEmployee.TarefaID, FuncionarioId = taskEmployee.FuncionarioID}; 
+            TaskEmployeeDTO taskEmployeeDTO = new TaskEmployeeDTO{TaskId = taskEmployee.TaskId, EmployeeId = taskEmployee.EmployeeId}; 
 
             return taskEmployeeDTO;
         }

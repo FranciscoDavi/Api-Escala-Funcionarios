@@ -18,31 +18,31 @@ namespace Api.Controllers
         [HttpGet]
         public IActionResult GetTask()
         {
-            List<Tarefa> tasks = _service.GetAllTasks();
+            List<Tasks> tasks = _service.GetAllTasks();
             return Ok(tasks);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetOneTask(int id)
         {
-            Tarefa tasks = _service.GetOneTask(id);
+            Tasks tasks = _service.GetOneTask(id);
             return Ok(tasks);
         }
 
         [HttpPost]
-        public IActionResult PostTask (Tarefa task)
+        public IActionResult PostTask (Tasks task)
         {
             if(task == null) return NotFound();
 
-            Tarefa newPost = _service.CreateTask(task);
+            Tasks newPost = _service.CreateTask(task);
 
             return Ok(newPost);
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutTask (int id, Tarefa task)
+        public IActionResult PutTask (int id, Tasks task)
         {
-            Tarefa updatedTask = _service.UpdateTask(id, task);
+            Tasks updatedTask = _service.UpdateTask(id, task);
 
             if(updatedTask == null)
                 return NotFound();
@@ -55,7 +55,7 @@ namespace Api.Controllers
         public IActionResult DeleteTask (int id)
         {
             try{
-                Tarefa deletedTask = _service.DeleteTask(id);
+                Tasks deletedTask = _service.DeleteTask(id);
 
                 if(deletedTask == null) 
                     return NotFound();

@@ -4,11 +4,11 @@ namespace Api.Repositories
 {
     public interface IShiftEmployeeRepository
     {
-        public Turno GetShiftById(int id);
+        public Shift GetShiftById(int id);
         
-        public Funcionario GetEmployeeById(int id);
+        public Employee GetEmployeeById(int id);
 
-        public void Associate(FuncionarioTurno shiftEmployee);
+        public void Associate(ShiftEmployee shiftEmployee);
     }
 
 
